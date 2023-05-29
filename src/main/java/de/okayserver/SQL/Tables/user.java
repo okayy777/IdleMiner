@@ -1,12 +1,15 @@
 package de.okayserver.SQL.Tables;
 
 import de.okayserver.SQL.MySQL;
+import de.okayserver.Users.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 public class user {
 
@@ -40,6 +43,22 @@ public class user {
             e.printStackTrace();
         }
     }
+
+    public static void UpdateUser(User u) {
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE user SET ADMIN=?, VIP=?, TOKEN=?, LEVEL=?, XP=? WHERE UUID=?");
+            ps.setBoolean(1 , u.isAdmin());
+            ps.setBoolean(2 , u.isVIP());
+            ps.setInt(3 , u.getToken());
+            ps.setInt(4 , u.getLevel());
+            ps.setInt(5 , u.getXP());
+            ps.setString(6 , u.getUUID());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public static boolean UUIDexists(String UUID) {
         try{
             PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * from user WHERE UUID=?");
@@ -145,6 +164,23 @@ public class user {
             e.printStackTrace();
         }
         return Timestamp.from(Instant.now());
+    }
+
+    public static List<String> UUIDs() {
+        List<String> UUIDs = new ArrayList<String>();
+        PreparedStatement ps;
+        try {
+            ps = MySQL.getConnection().prepareStatement("SELECT UUID FROM user");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String UUID = rs.getString("UUID");
+                UUIDs.add(UUID);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return UUIDs;
     }
 
 }

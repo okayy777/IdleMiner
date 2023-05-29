@@ -2,6 +2,7 @@ package de.okayserver;
 
 
 import de.okayserver.SQL.MySQL;
+import de.okayserver.SQL.Tables.user;
 import de.okayserver.properties.Properties;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -31,8 +32,10 @@ public class main {
             throw new RuntimeException(e);
         }
 
-        if (MySQL.isConnected()) {
-            // create Tables
+        if (MySQL.isConnected()) { // create Tables
+            user.UserTable();
+
+
         }
 
         ActivityChanged = false;
@@ -43,7 +46,7 @@ public class main {
             jda = JDABuilder.createDefault(TOKEN, GatewayIntent.GUILD_EMOJIS_AND_STICKERS,
                             GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGES,
                             GatewayIntent.DIRECT_MESSAGE_REACTIONS, GatewayIntent.GUILD_MESSAGE_REACTIONS)
-                    .setActivity(Activity.watching("0 active Player"))
+                    .setActivity(Activity.watching("0 active Miner"))
                     .setStatus(OnlineStatus.ONLINE)
                     .disableCache(
                             CacheFlag.ACTIVITY,
@@ -62,9 +65,7 @@ public class main {
             Runnable run = new Runnable() {
                 @Override
                 public void run() {
-
-
-
+                    utils.StatusChange(jda);
                 }
             };
         }
