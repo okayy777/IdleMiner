@@ -2,6 +2,7 @@ package de.okayserver;
 
 
 import de.okayserver.SQL.MySQL;
+import de.okayserver.SQL.Tables.Mines.mines;
 import de.okayserver.SQL.Tables.user;
 import de.okayserver.commands.slashCommand;
 import de.okayserver.properties.Properties;
@@ -9,10 +10,15 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
+import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 
 import javax.security.auth.login.LoginException;
 import java.sql.SQLException;
@@ -40,6 +46,8 @@ public class main {
 
         if (MySQL.isConnected()) { // create Tables
             user.UserTable();
+            mines.MineTable("Coal");
+
 
 
         }
@@ -71,7 +79,19 @@ public class main {
 
             System.out.println("Everything loaded");
 
+
+
             jda.upsertCommand("create" , "Create your Account").queue();
+
+            SlashCommandData CoalMine = new CommandDataImpl("coalmine" , "All about the CoalMines");
+            SubcommandData CoalMine_Info = new SubcommandData("info" , "Info about your CoalMine");
+            SubcommandData CoalMine_Shop = new SubcommandData("shop" , "CoalMine Shop");
+            SubcommandData CoalMine_Elevator = new SubcommandData("elevator" , "CoalMine Elevator");
+            SubcommandData CoalMine_Miner = new SubcommandData("miner" , "CoalMine Miner");
+            CoalMine.addSubcommands(CoalMine_Info , CoalMine_Elevator , CoalMine_Shop , CoalMine_Miner);
+            CoalMine_Miner.addOption(OptionType.INTEGER , "number" , "select which Miner you want to see" , true);
+            jda.upsertCommand(CoalMine).queue();
+
 
             Runnable run = new Runnable() {
                 @Override

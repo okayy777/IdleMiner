@@ -1,5 +1,6 @@
 package de.okayserver.Users;
 
+import de.okayserver.SQL.Tables.Mines.mines;
 import de.okayserver.SQL.Tables.user;
 
 import java.sql.Timestamp;
@@ -24,6 +25,7 @@ public class UserUtils {
         if (!user.UUIDexists(uuid)) {
             user.InsertUser(uuid , false , false , 0 , 1 , 0, Timestamp.from(Instant.now()));
 
+
             User u = new User();
             u.setUUID(uuid);
             u.setAdmin(user.isAdmin(uuid));
@@ -31,6 +33,7 @@ public class UserUtils {
             u.setToken(user.getToken(uuid));
             u.setLevel(user.getLevel(uuid));
             u.setXP(user.getXP(uuid));
+            mines.addUser(u , "Coal");
             User.UserList.put(uuid , u);
         }
     }
