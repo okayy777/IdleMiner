@@ -11,6 +11,7 @@ public class slashCommand extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent e) {
+        System.out.println(e.getInteraction().getSubcommandName());
         switch (e.getName()) {
             case "create":
                 if (user.UUIDexists(e.getInteraction().getUser().getId())) {
@@ -20,11 +21,21 @@ public class slashCommand extends ListenerAdapter {
                     e.replyEmbeds(embeds.BasicEmbed("Account creation", "You successfully created your Account", e.getUser().getName(), "Costum4"))
                             .addActionRow(Button.link("https://github.com/okayy777/IdleMiner/wiki", "Wiki")).setEphemeral(true).queue();
                 }
-            case "CoalMine":
+            case "coalmine":
                 if (user.UUIDexists(e.getInteraction().getUser().getId())) {
-                    if (e.getInteraction().getFullCommandName().contains("info")) {
+                    switch (e.getInteraction().getSubcommandName()){
+                        case "info":
+                            e.replyEmbeds(embeds.CoalMine(e.getInteraction().getUser().getId() , e.getUser().getName())).queue();
+
+
+                        case "shop":
+
+
+                        case "elevator":
+
 
                     }
+
 
                 } else {
                     e.replyEmbeds(embeds.BasicEmbed("Account creation" , "You need to create a Account first" , e.getUser().getName() , "Red")).queue();

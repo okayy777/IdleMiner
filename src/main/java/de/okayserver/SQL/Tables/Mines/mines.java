@@ -4,6 +4,7 @@ import de.okayserver.SQL.MySQL;
 import de.okayserver.Users.User;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -39,6 +40,21 @@ public class mines {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static int getInfo(User u , String Mine ,String Info) {
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * from "+Mine + "mine" +" WHERE UUID=?");
+            ps.setString(1, u.getUUID());
+            ResultSet results = ps.executeQuery();
+
+            if (results.next()) {
+                return results.getInt(Info);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 }

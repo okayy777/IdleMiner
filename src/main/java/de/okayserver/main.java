@@ -4,6 +4,7 @@ package de.okayserver;
 import de.okayserver.SQL.MySQL;
 import de.okayserver.SQL.Tables.Mines.mines;
 import de.okayserver.SQL.Tables.user;
+import de.okayserver.Users.UserUtils;
 import de.okayserver.commands.slashCommand;
 import de.okayserver.properties.Properties;
 import net.dv8tion.jda.api.JDA;
@@ -49,7 +50,7 @@ public class main {
             mines.MineTable("Coal");
 
 
-
+            UserUtils.addUsers();
         }
 
         ActivityChanged = false;
