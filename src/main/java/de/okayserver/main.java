@@ -8,14 +8,19 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
 import java.sql.SQLException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class main {
+    public static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
     public static JDA jda;
     public static boolean StatusChanged;
     public static boolean ActivityChanged;
@@ -68,6 +73,8 @@ public class main {
                     utils.StatusChange(jda);
                 }
             };
+
+            scheduler.scheduleAtFixedRate(run , 4 , 1 , TimeUnit.SECONDS);
         }
     }
 
