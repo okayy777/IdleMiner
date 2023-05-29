@@ -3,6 +3,7 @@ package de.okayserver;
 
 import de.okayserver.SQL.MySQL;
 import de.okayserver.SQL.Tables.user;
+import de.okayserver.commands.slashCommand;
 import de.okayserver.properties.Properties;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -65,7 +66,12 @@ public class main {
                     )
                     .setChunkingFilter(ChunkingFilter.NONE)
                     .addEventListeners(new MessageListener())
+                    .addEventListeners(new slashCommand())
                     .build();
+
+            System.out.println("Everything loaded");
+
+            jda.upsertCommand("create" , "Create your Account").queue();
 
             Runnable run = new Runnable() {
                 @Override

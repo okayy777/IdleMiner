@@ -17,7 +17,7 @@ public class user {
         PreparedStatement ps;
         try {
             ps = MySQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS user (UUID VARCHAR(100) , " +
-                    "ADMIN BOOLEAN , VIP BOOLEAN, TOKEN INT, LEVEL INT , XP INT, CREATED TIMESTAMP, PRIMARY KEY (UUID)");
+                    "ADMIN BOOLEAN , VIP BOOLEAN, TOKEN INT, LEVEL INT , XP INT, CREATED TIMESTAMP, PRIMARY KEY (UUID))");
             ps.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -29,7 +29,7 @@ public class user {
     public static void InsertUser(String UUID , boolean Admin , boolean VIP , int Token , int Level , int XP , Timestamp date) {
         try {
             PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO user (UUID, ADMIN , VIP , TOKEN , LEVEL , XP , CREATED)" +
-                    " VALUES (?,?,?,?,?,?,?");
+                    " VALUES (?,?,?,?,?,?,?)");
             ps.setString(1, UUID);
             ps.setBoolean(2, Admin);
             ps.setBoolean(3, VIP);

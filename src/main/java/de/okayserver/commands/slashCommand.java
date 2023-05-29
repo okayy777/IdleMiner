@@ -13,7 +13,6 @@ public class slashCommand extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent e) {
         switch (e.getName()) {
             case "create":
-                e.deferReply().queue();
                 String UUID = e.getInteraction().getUser().getId();
                 if (user.UUIDexists(UUID)) {
                     e.replyEmbeds(embeds.BasicEmbed("Account creation" , "You already created your Account" , e.getUser().getName() , "Red")).queue();
@@ -21,6 +20,9 @@ public class slashCommand extends ListenerAdapter {
                     UserUtils.createUser(UUID);
                     e.replyEmbeds(embeds.BasicEmbed("Account creation" , "You successfully created your Account" , e.getUser().getName() , "Costum4"))
                             .addActionRow(Button.link("https://github.com/okayy777/IdleMiner/wiki" , "Wiki")).queue();
+
+
+
                 }
         }
     }
