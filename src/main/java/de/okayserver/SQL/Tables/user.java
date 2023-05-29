@@ -19,6 +19,24 @@ public class user {
         }
     }
 
+
+
+    public static void InsertUser(String UUID , boolean Admin , boolean VIP , int Tokens , int Level , int XP ) {
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO user (UUID, ADMIN , VIP , TOKENS , LEVEL , XP)" +
+                    " VALUES (?,?,?,?,?,?");
+            ps.setString(1, UUID);
+            ps.setBoolean(2, Admin);
+            ps.setBoolean(3, VIP);
+            ps.setInt(4, Tokens);
+            ps.setInt(5, Level);
+            ps.setInt(6, XP);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public static boolean UUIDexists(String UUID) {
         try{
             PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * from user WHERE UUID=?");
@@ -37,20 +55,36 @@ public class user {
         return false;
     }
 
-    public static void InsertUser(String UUID , boolean Admin , boolean VIP , int Tokens , int Level , int XP ) {
+    public static boolean isAdmin(String UUID) {
         try {
-            PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO user (UUID, ADMIN , VIP , TOKENS , LEVEL , XP)" +
-                    " VALUES (?,?,?,?,?,?");
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * from user WHERE UUID=?");
             ps.setString(1, UUID);
-            ps.setBoolean(2, Admin);
-            ps.setBoolean(3, VIP);
-            ps.setInt(4, Tokens);
-            ps.setInt(5, Level);
-            ps.setInt(6, XP);
-            ps.executeUpdate();
+            ResultSet results = ps.executeQuery();
 
+            if (results.next()) {
+                return results.getBoolean("ADMIN");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
+
+    public static boolean isVIP(String UUID) {
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * from user WHERE UUID=?");
+            ps.setString(1, UUID);
+            ResultSet results = ps.executeQuery();
+
+            if (results.next()) {
+                return results.getBoolean("VIP");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+
 }
