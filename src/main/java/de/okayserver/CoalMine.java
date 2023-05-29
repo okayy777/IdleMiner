@@ -5,7 +5,7 @@ import de.okayserver.Users.User;
 
 public class CoalMine {
 
-    public static int CashPerSecond(User u) {
+    public static double CashPerSecond(User u) {
 
         double PrestigeMultiplier = 1;
 
@@ -17,7 +17,7 @@ public class CoalMine {
             double level = mines.getInfo(u , "Coal" , "Miner" + x);
             if (level >= 1) {
                 double multiplier = level / 10 + 1;
-                perSecond= defaultAmount * multiplier;
+                perSecond= defaultAmount * multiplier +perSecond;
 
                 defaultAmount = defaultAmount * 3;
             } else {
@@ -25,6 +25,16 @@ public class CoalMine {
             }
         }
 
-        return 0;
+        return perSecond;
+    }
+
+
+    public static void GenerateCash() {
+
+        for (User u : User.UserList.values()) {
+            double Cash = mines.getInfo(u , "Coal" , "CASH");
+            Cash = Cash+ (5* CashPerSecond(u));
+            mines.updateCash(u , "Coal" , Cash );
+        }
     }
 }

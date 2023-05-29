@@ -51,7 +51,7 @@ public class embeds {
             }
         }
         MessageEmbed embed = new MessageEmbed("" ,  Author+ "'s CoalMine" ,
-                "**Cash**:  **" + mines.getInfo(u , "Coal" , "Cash") + "$** \n" +
+                "**Cash**:  **" + mines.getInfo(u , "Coal" , "Cash") + "$** ("+CoalMine.CashPerSecond(u) +") \n" +
                 "**Prestige**: Level **" + mines.getInfo(u , "Coal" , "Prestige") + "**\n" +
                 "**Shop**: Level **" + mines.getInfo(u , "Coal" , "Shop") + "**\n" +
                 "**Elevator**: Level **" + mines.getInfo(u , "Coal" , "Elevator") + "**\n" +

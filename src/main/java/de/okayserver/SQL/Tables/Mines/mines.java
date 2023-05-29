@@ -57,4 +57,23 @@ public class mines {
         return 0;
     }
 
+    public static void updateInfo(User u , String Mine , String Info , int Level ) {
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE "+Mine+ "mine SET "+ Info+"=? WHERE UUID=?");
+            ps.setInt(1 , Level);
+            ps.setString(2 , u.getUUID());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void updateCash(User u , String Mine , double CASH ) {
+        try {
+            PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE "+Mine+ "mine SET CASH=? WHERE UUID=?");
+            ps.setDouble(1 , CASH);
+            ps.setString(2 , u.getUUID());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

@@ -102,6 +102,15 @@ public class main {
             };
 
             scheduler.scheduleAtFixedRate(run , 4 , 1 , TimeUnit.SECONDS);
+
+            Runnable GenerateMoney = new Runnable() {
+                @Override
+                public void run() {
+                    de.okayserver.CoalMine.GenerateCash();
+                }
+            };
+
+            scheduler.scheduleAtFixedRate(GenerateMoney , 4 , 5 , TimeUnit.SECONDS);
         }
     }
 

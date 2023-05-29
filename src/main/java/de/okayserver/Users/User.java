@@ -13,6 +13,7 @@ public class User {
     private int Token;
     private int Level;
     private int XP;
+
     private Timestamp started;
 
     public String getUUID() {
