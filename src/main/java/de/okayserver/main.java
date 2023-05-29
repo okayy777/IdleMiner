@@ -1,7 +1,6 @@
 package de.okayserver;
 
 
-import com.mysql.cj.protocol.MessageListener;
 import de.okayserver.SQL.MySQL;
 import de.okayserver.properties.Properties;
 import net.dv8tion.jda.api.JDA;
@@ -44,8 +43,8 @@ public class main {
             jda = JDABuilder.createDefault(TOKEN, GatewayIntent.GUILD_EMOJIS_AND_STICKERS,
                             GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGES,
                             GatewayIntent.DIRECT_MESSAGE_REACTIONS, GatewayIntent.GUILD_MESSAGE_REACTIONS)
-                    .setActivity(Activity.watching("Starting"))
-                    .setStatus(OnlineStatus.INVISIBLE)
+                    .setActivity(Activity.watching("0 active Player"))
+                    .setStatus(OnlineStatus.ONLINE)
                     .disableCache(
                             CacheFlag.ACTIVITY,
                             CacheFlag.VOICE_STATE,
@@ -59,6 +58,15 @@ public class main {
                     .setChunkingFilter(ChunkingFilter.NONE)
                     .addEventListeners(new MessageListener())
                     .build();
+
+            Runnable run = new Runnable() {
+                @Override
+                public void run() {
+
+
+
+                }
+            };
         }
     }
 
