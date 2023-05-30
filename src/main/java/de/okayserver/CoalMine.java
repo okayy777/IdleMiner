@@ -3,6 +3,8 @@ package de.okayserver;
 import de.okayserver.SQL.Tables.Mines.mines;
 import de.okayserver.Users.User;
 
+import java.text.DecimalFormat;
+
 public class CoalMine {
 
     public static double CashPerSecond(User u) {
@@ -29,13 +31,19 @@ public class CoalMine {
 
         double perSecond = 0;
 
-        for (int x = 1 ; x== 25 ; x++) {
+
+
+        int x = 1;
+        while (x != 25) {
+
             double level = mines.getInfo(u , "Coal" , "MINER" + x);
             if (level >= 1) {
-                double multiplier = level / 10 + 1;
+
+                double multiplier = (level / 10 ) + 1;
                 perSecond= defaultAmount * multiplier +perSecond;
 
                 defaultAmount = defaultAmount * 3;
+                x++;
             } else {
                 break;
             }
@@ -46,8 +54,10 @@ public class CoalMine {
         int ShopLevel = mines.getInfo(u , "Coal", "SHOP");
 
         double ShopMax = 2;
-        for (int x = 1; x == ShopLevel ; x++) {
+        int x = 1;
+        while ( x != ShopLevel ) {
             ShopMax = ShopMax * 1.1236;
+            x++;
         }
         return ShopMax;
     }
@@ -57,8 +67,10 @@ public class CoalMine {
 
 
         double ElevMax = 2;
-        for (int x = 1; x == ElevLevel ; x++) {
+        int x = 1;
+        while ( x != ElevLevel ) {
             ElevMax = ElevMax * 1.2113;
+            x++;
         }
         return ElevMax;
     }
@@ -67,7 +79,7 @@ public class CoalMine {
 
         for (User u : User.UserList.values()) {
             double Cash = mines.getInfo(u , "Coal" , "CASH");
-            Cash = Cash+ (5* CashPerSecond(u));
+            Cash = Cash+ (5 * CashPerSecond(u));
             mines.updateCash(u , "Coal" , Cash );
         }
     }

@@ -5,6 +5,7 @@ import de.okayserver.Users.User;
 import net.dv8tion.jda.api.entities.EmbedType;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
+import java.text.DecimalFormat;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,17 +46,20 @@ public class embeds {
         int color = ColorChange("Costum3");
         User u = User.UserList.get(UUID);
         int miner = 1;
-        for(int x = 1 ; x == 25 ; x++) {
+        int x = 1;
+        while( x != 25 ) {
             if (mines.getInfo(u , "Coal" , "Miner" + x) >= 1) {
                 miner++;
             }
+            x++;
         }
+        DecimalFormat df = new DecimalFormat("0.00");
         MessageEmbed embed = new MessageEmbed("" ,  Author+ "'s CoalMine" ,
-                "**Cash**:  **" + mines.getInfo(u , "Coal" , "Cash") + "$** ("+CoalMine.CashPerSecond(u) +"$/s) \n" +
+                "**Cash**:  **" + mines.getInfo(u , "Coal" , "Cash") + "$** ("+df.format(CoalMine.CashPerSecond(u)) +"$/s) \n" +
                 "**Prestige**: Level **" + mines.getInfo(u , "Coal" , "Prestige") + "**\n" +
-                "**Shop**: Level **" + mines.getInfo(u , "Coal" , "Shop") + "** ("+ CoalMine.ShopPerSecond(u)+"$/s)\n" +
-                "**Elevator**: Level **" + mines.getInfo(u , "Coal" , "Elevator") + "**("+ CoalMine.ElevatorPerSecond(u)+"$/s)\n" +
-                        "**Miner**: **" + miner  + "** active Miner ("+ CoalMine.MinerPerSecond(u)+"$/s)" ,
+                "**Shop**: Level **" + mines.getInfo(u , "Coal" , "Shop") + "** ("+ df.format(CoalMine.ShopPerSecond(u))+"$/s)\n" +
+                "**Elevator**: Level **" + mines.getInfo(u , "Coal" , "Elevator") + "** ("+ df.format(CoalMine.ElevatorPerSecond(u))+"$/s)\n" +
+                        "**Miner**: **" + miner  + "** active Miner ("+ df.format(CoalMine.MinerPerSecond(u))+"$/s)" ,
                 EmbedType.AUTO_MODERATION , OffsetDateTime.now() , color , thumbnail ,provider ,author ,videoInfo ,footer ,image, fields);
         return embed;
     }
